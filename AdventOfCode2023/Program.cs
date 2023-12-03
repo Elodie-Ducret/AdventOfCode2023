@@ -1,3 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿namespace AdventOfCode2023 
+{
+    internal static class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, Happy Advent Of Code 2023!");
 
-Console.WriteLine("Hello, Happy Advent Of Code 2023!");
+
+        }
+    }
+}
