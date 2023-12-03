@@ -24,7 +24,7 @@ public class Day2Part2Problem(string name, string path) : Problem<List<Bag>, int
         {
             var p = game.Split(": ");
             var gameNumber = p[0].Split("Game ")[1];
-            
+
             var handsSplit = p[1].Split("; ");
 
             var rgbList = new List<RGB>();
@@ -57,29 +57,26 @@ public class Day2Part2Problem(string name, string path) : Problem<List<Bag>, int
 
     protected override int Solve(List<Bag> input)
     {
-        var sum = 0; 
+        var sum = 0;
         foreach (var bag in input)
         {
             var biggerRgb = GetBiggerRgb(bag.Hands);
             var factor = biggerRgb.R * biggerRgb.G * biggerRgb.B;
             sum += factor;
-
         }
 
         return sum;
     }
-    
+
     private RGB GetBiggerRgb(List<RGB> rgbs)
     {
         var rgb = new RGB
         {
-            R = rgbs.Max(x=> x.R),
-            G = rgbs.Max(x=> x.G),
-            B = rgbs.Max(x=> x.B)
+            R = rgbs.Max(x => x.R),
+            G = rgbs.Max(x => x.G),
+            B = rgbs.Max(x => x.B)
         };
 
         return rgb;
-
-
     }
 }
