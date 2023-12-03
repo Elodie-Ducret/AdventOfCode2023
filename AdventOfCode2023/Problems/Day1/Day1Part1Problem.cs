@@ -1,18 +1,19 @@
 ﻿using AdventOfCode2023.Common;
+using AdventOfCode2023.Schema.Day1;
 
-namespace AdventOfCode2023.Problems;
+namespace AdventOfCode2023.Problems.Day1;
 
-public class Day1Problem(string name, string path) : Problem<List<Day1Problem.Calibration>, int>(name, path)
+public class Day1Part1Problem(string name, string path) : Problem<List<Calibration>, int>(name, path)
 {
     public static void Run()
     {
-        var day1Problem = new Day1Problem("Day 1 Part 1", "Day1/Day_1.txt");
+        var day1Problem = new Day1Part1Problem("Day 1 Part 1", "Day1/Day1.txt");
         var response = day1Problem.SolveProblem(); 
     }
 
     public static void RunTest()
     {
-        var day1Problem = new Day1Problem("Day 1 Part 1 Test", "Day1/Day_1_Test.txt");
+        var day1Problem = new Day1Part1Problem("Day 1 Part 1 Test", "Day1/Day1_Part1_Test.txt");
         var response = day1Problem.SolveProblem();
     }
 
@@ -34,12 +35,5 @@ public class Day1Problem(string name, string path) : Problem<List<Day1Problem.Ca
     protected override int Solve(List<Calibration> input)
     {
         return input.Sum(calibration => int.Parse(string.Concat(calibration.Numbers.First().ToString() + calibration.Numbers.Last().ToString())));
-    }
-    
-    
-    public class Calibration
-    {
-        public int Line;
-        public List<int> Numbers;
     }
 }
