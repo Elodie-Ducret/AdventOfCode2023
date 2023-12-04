@@ -7,13 +7,13 @@ public class Day3Part2Problem(string name, string path) : Problem<MotorMatrix, i
 {
     public static void Run()
     {
-        var day1Problem = new Day3Part2Problem("Day 3 Part 1", "Day3/Day3.txt");
+        var day1Problem = new Day3Part2Problem("Day 3 Part 2", "Day3/Day3.txt");
         var response = day1Problem.SolveProblem();
     }
 
     public static void RunTest()
     {
-        var day1Problem = new Day3Part2Problem("Day 3 Part 1 Test", "Day3/Day3_Part1_Test.txt");
+        var day1Problem = new Day3Part2Problem("Day 3 Part 2 Test", "Day3/Day3_Part1_Test.txt");
         var response = day1Problem.SolveProblem();
     }
 
