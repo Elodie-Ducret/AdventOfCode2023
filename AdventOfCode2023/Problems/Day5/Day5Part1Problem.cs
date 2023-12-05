@@ -3,7 +3,7 @@ using AdventOfCode2023.Schema.Day5;
 
 namespace AdventOfCode2023.Problems.Day5;
 
-public class Day5Part1Problem(string name, string path) : Problem<Almanac, double>(name, path)
+public class Day5Part1Problem(string name, string path) : Problem<Almanac, uint>(name, path)
 {
     public static void Run()
     {
@@ -23,7 +23,7 @@ public class Day5Part1Problem(string name, string path) : Problem<Almanac, doubl
 
         var splitOnSpaces = singleString.Split("\n\n");
 
-        var seeds = splitOnSpaces[0].Split(": ")[1].Split(' ').Select(double.Parse).ToList();
+        var seeds = splitOnSpaces[0].Split(": ")[1].Split(' ').Select(uint.Parse).ToList();
 
         var almanac = new Almanac
         {
@@ -49,22 +49,22 @@ public class Day5Part1Problem(string name, string path) : Problem<Almanac, doubl
             var line = lines[i].Split(" ");
             list.Add(new Map
             {
-                DestinationRangeStart = double.Parse(line[0]),
-                SourceRangeStart = double.Parse(line[1]),
-                RangeLength = double.Parse(line[2])
+                DestinationRangeStart = uint.Parse(line[0]),
+                SourceRangeStart = uint.Parse(line[1]),
+                RangeLength = uint.Parse(line[2])
             });
         }
 
         return list;
     }
 
-    protected override double Solve(Almanac input)
+    protected override uint Solve(Almanac input)
     {
         var locations = input.Seeds.Select(seed => GetLocation(seed, input)).ToList();
         return locations.Min();
     }
 
-    private double GetLocation(double seed, Almanac almanac)
+    private uint GetLocation(uint seed, Almanac almanac)
     {
         var soil = GetCorrespondence(seed, almanac.SeedToSoil);
         var fertilizer = GetCorrespondence(soil, almanac.SoilToFertilizer);
@@ -77,7 +77,7 @@ public class Day5Part1Problem(string name, string path) : Problem<Almanac, doubl
     }
 
 
-    private double GetCorrespondence(double baseValue, List<Map> mapping)
+    private uint GetCorrespondence(uint baseValue, List<Map> mapping)
     {
         var correspondenceMapping = mapping.FirstOrDefault(x =>
             x.SourceRangeStart <= baseValue && baseValue <= x.SourceRangeStart + x.RangeLength);

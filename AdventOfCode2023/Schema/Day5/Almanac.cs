@@ -2,7 +2,7 @@
 
 public class Almanac
 {
-    public List<double> Seeds { get; set; }
+    public List<uint> Seeds { get; set; }
     public List<Map> SeedToSoil { get; set; }
     public List<Map> SoilToFertilizer { get; set; }
     public List<Map> FertilizerToWater { get; set; }
@@ -15,8 +15,8 @@ public class Almanac
 
 public record Map
 {
-    public double DestinationRangeStart { get; set; }
-    public double SourceRangeStart { get; set; }
-    public double RangeLength { get; set; }
+    public uint DestinationRangeStart { get; set; }
+    public uint SourceRangeStart { get; set; }
+    public uint RangeLength { get; set; }
     
 } 
