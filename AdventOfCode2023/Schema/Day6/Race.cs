@@ -1,11 +1,11 @@
 ﻿namespace AdventOfCode2023.Schema.Day6;
 
-public record Race(int Time, int Distance)
+public record Race(long Time, long Distance)
 {
-    public int Time = Time;
-    public int Distance = Distance;
+    public long Time = Time;
+    public long Distance = Distance;
     
-    public int GetDistanceTraveled(int pressDuration)
+    public long GetDistanceTraveled(int pressDuration)
     {
         return (Time - pressDuration) * pressDuration;
     }
