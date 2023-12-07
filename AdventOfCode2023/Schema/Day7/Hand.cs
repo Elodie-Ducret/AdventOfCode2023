@@ -1,9 +1,10 @@
-﻿using AdventOfCode2023.Schema.Day4;
+﻿namespace AdventOfCode2023.Schema.Day7;
 
-namespace AdventOfCode2023.Schema.Day7;
-
-public record Hand(List<int> Cards, int Bid) : IComparable
+public record Hand(List<int> Cards, int Bid) : IComparable<Hand>
 {
+    private const int Joker = 1;
+    private const int BestCard = 14;
+
     public List<int> Cards = Cards;
     public int Bid = Bid;
     private Type? _handType;
@@ -15,11 +16,28 @@ public record Hand(List<int> Cards, int Bid) : IComparable
         return _handType.Value;
     }
 
+    public Type GetBestTypeWithJoker()
+    {
+        if (_handType != null) return _handType.Value;
+        _handType = GetTypeWithJoker();
+        return _handType.Value;
+    }
 
     private new Type GetType()
     {
         var cardsDuplicateCount = GetCardDuplicateCount();
+        return GetType(cardsDuplicateCount);
+    }
 
+    private new Type GetTypeWithJoker()
+    {
+        var cardsDuplicateCount = GetCardDuplicateCountWithJoker();
+        return GetType(cardsDuplicateCount);
+    }
+
+
+    private Type GetType(Dictionary<int, int> cardsDuplicateCount)
+    {
         if (cardsDuplicateCount.Count == 1) return Type.FiveOfAKind;
         if (cardsDuplicateCount.Count(x => x.Value == 4) == 1) return Type.FourOfAKind;
         if (cardsDuplicateCount.Count(x => x.Value == 3) == 1)
@@ -34,21 +52,34 @@ public record Hand(List<int> Cards, int Bid) : IComparable
         return Type.HighCard;
     }
 
-    public int CompareTo(object? obj)
+    private Dictionary<int, int> GetCardDuplicateCountWithJoker()
     {
-        if (obj is not Hand handToCompare) return 1;
-       
-        for (int i = 0; i < handToCompare.Cards.Count; i++)
-        {
-            if (Cards[i] != handToCompare.Cards[i])
+        var groups =
+            from s in Cards
+            group s by s
+            into g
+            select new
             {
-                return Cards[i].CompareTo(handToCompare.Cards[i]); 
-            }
+                Stuff = g.Key,
+                Count = g.Count()
+            };
+
+        var dictionaryGroups = groups.ToDictionary(g => g.Stuff, g => g.Count);
+
+        if (!dictionaryGroups.ContainsKey(Joker)) return dictionaryGroups;
+        
+        if (dictionaryGroups.First(x => x.Key == Joker).Value == 5)
+        {
+            dictionaryGroups.Add(BestCard, 5); 
+            dictionaryGroups.Remove(Joker);
+            return dictionaryGroups;
         }
-
-        return 1; 
+        
+        var best = dictionaryGroups.Where(x => x.Key != Joker).MaxBy(x => x.Value);
+        dictionaryGroups[best.Key] += dictionaryGroups.First(x => x.Key == Joker).Value;
+        dictionaryGroups.Remove(Joker);
+        return dictionaryGroups;
     }
-
 
     private Dictionary<int, int> GetCardDuplicateCount()
     {
@@ -64,8 +95,18 @@ public record Hand(List<int> Cards, int Bid) : IComparable
         return groups.ToDictionary(g => g.Stuff, g => g.Count);
     }
 
-    public int GetCard(int index)
+    public int CompareTo(Hand? other)
     {
-        return Cards[index];
+        if (other == null) return 1;
+
+        for (int i = 0; i < other.Cards.Count; i++)
+        {
+            if (Cards[i] != other.Cards[i])
+            {
+                return Cards[i].CompareTo(other.Cards[i]);
+            }
+        }
+
+        return 1;
     }
 }
