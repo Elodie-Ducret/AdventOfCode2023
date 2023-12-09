@@ -66,7 +66,7 @@ public class Day8Part2Problem(string name, string path) : Problem<Network, long>
             system.Add(new Equation(positions.Count - positions.IndexOf(follower), zIndex));
         }
 
-        return Gcd(system.Select(x => x.Constant).ToArray()); 
+        return Lcm(system.Select(x => x.Constant).ToArray()); 
     }
 
 
@@ -75,7 +75,7 @@ public class Day8Part2Problem(string name, string path) : Problem<Network, long>
         return n2 == 0 ? n1 : Gcd(n2, n1 % n2);
     }
 
-    private static long Gcd(long[] numbers)
+    private static long Lcm(long[] numbers)
     {
         return numbers.Aggregate((s, val) => s * val / Gcd(s, val));
     }
