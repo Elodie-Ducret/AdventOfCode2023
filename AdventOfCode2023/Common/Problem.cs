@@ -1,4 +1,6 @@
-﻿namespace AdventOfCode2023.Common;
+﻿using System.Diagnostics;
+
+namespace AdventOfCode2023.Common;
 
 public abstract class Problem<TInput, TOutput>(string name, string path)
 {
@@ -13,10 +15,13 @@ public abstract class Problem<TInput, TOutput>(string name, string path)
 
     protected TOutput SolveProblem()
     {
+        var sw = new Stopwatch();
+        sw.Start();
         var input = ReadInput();
         var inputConverted = Convert(input);
         var result = Solve(inputConverted);
-        Console.WriteLine($"Problem {name}: {result}");
+        sw.Stop();
+        Console.WriteLine($"Problem {name}: {result} (in {sw.ElapsedMilliseconds} ms");
         return result;
     }
 }
