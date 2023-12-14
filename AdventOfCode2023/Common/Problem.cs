@@ -21,7 +21,7 @@ public abstract class Problem<TInput, TOutput>(string name, string path)
         var inputConverted = Convert(input);
         var result = Solve(inputConverted);
         sw.Stop();
-        Console.WriteLine($"Problem {name}: {result} (in {sw.ElapsedMilliseconds} ms");
+        Console.WriteLine($"Problem {name}: {result} (in {sw.ElapsedMilliseconds} ms)");
         return result;
     }
 }
