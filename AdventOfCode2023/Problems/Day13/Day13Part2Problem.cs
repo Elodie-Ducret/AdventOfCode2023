@@ -3,26 +3,20 @@ using AdventOfCode2023.Schema.Day13;
 
 namespace AdventOfCode2023.Problems.Day13;
 
-public class Day13Part1Problem(string name, string path) : Problem<List<Pattern>, long>(name, path)
+public class Day13Part2Problem(string name, string path) : Problem<List<Pattern>, long>(name, path)
 {
     public static void Run()
     {
-        var day1Problem = new Day13Part1Problem("Day 13 Part 1", "Day13/Day13.txt");
+        var day1Problem = new Day13Part2Problem("Day 13 Part 2", "Day13/Day13.txt");
         var response = day1Problem.SolveProblem();
     }
 
     public static void RunTest1()
     {
-        var day1Problem = new Day13Part1Problem("Day 13 Part 1 Test1", "Day13/Day13_Part1_Test1.txt");
+        var day1Problem = new Day13Part2Problem("Day 13 Part 2 Test1", "Day13/Day13_Part1_Test1.txt");
         var response = day1Problem.SolveProblem();
     }
-
-    public static void RunTest2()
-    {
-        var day1Problem = new Day13Part1Problem("Day 13 Part 1 Test2", "Day13/Day13_Part1_Test2.txt");
-        var response = day1Problem.SolveProblem();
-    }
-
+    
     protected override List<Pattern> Convert(IEnumerable<string> input)
     {
         var fullInput = string.Join('\n', input);
@@ -58,6 +52,30 @@ public class Day13Part1Problem(string name, string path) : Problem<List<Pattern>
 
     protected override long Solve(List<Pattern> input)
     {
-        return input.Sum(pattern => pattern.GetPatternCount());
+        long sum = 0;
+        foreach (var pattern in input)
+        {
+            var rowPossibility = (-1, -1);
+            for (int row = 0; row < pattern.RowCount; row++)
+            {
+                var possibility = pattern.GetMirrorRowPossibility(row);
+                if (possibility == null) continue;
+                rowPossibility = possibility.Value;
+                sum += 100 * (row + 1);
+                break;
+            }
+
+            if (rowPossibility != (-1, -1)) continue;
+
+            for (int column = 0; column < pattern.ColumnCount; column++)
+            {
+                var possibility = pattern.GetMirrorColumnPossibility(column);
+                if (possibility == null) continue;
+                sum += (column + 1);
+                break;
+            }
+        }
+
+        return sum;
     }
 }
