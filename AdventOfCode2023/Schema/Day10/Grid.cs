@@ -10,7 +10,7 @@ public record Grid(char[,] Tiles, int RowCount, int ColumnCount, Position Starti
     private Position[] GetOnlyValidPositions(Position[] positions)
     {
         return positions
-            .Where(x => x.Column >= 0 && x.Column <= ColumnCount && x.Row >= 0 && x.Row <= RowCount)
+            .Where(x => x.Column >= 0 && x.Column < ColumnCount && x.Row >= 0 && x.Row < RowCount)
             .ToArray();
     }
 
@@ -69,5 +69,19 @@ public record Grid(char[,] Tiles, int RowCount, int ColumnCount, Position Starti
             default:
                 return Array.Empty<Position>();
         }
+    }
+
+    public List<Position> GetNeighbors(Position position)
+    {
+        var potentialPositions = new []
+        {
+            new Position(position.Row - 1, position.Column),
+            new Position(position.Row + 1, position.Column),
+            new Position(position.Row, position.Column + 1),
+            new Position(position.Row, position.Column - 1)
+        };
+
+        return GetOnlyValidPositions(potentialPositions).ToList(); 
+
     }
 }
