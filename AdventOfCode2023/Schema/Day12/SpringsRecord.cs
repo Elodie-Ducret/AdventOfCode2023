@@ -6,6 +6,7 @@ public record SpringsRecord(List<char> Springs, List<int> Conditions)
 {
     public List<char> Springs = Springs;
     public List<int> Conditions = Conditions;
+    private readonly long _conditionsCount = Conditions.Sum(); 
 
 
     private List<List<char>> Possibilities = new();
@@ -22,10 +23,12 @@ public record SpringsRecord(List<char> Springs, List<int> Conditions)
 
     private void GetAllPossibilities(List<char> inputString)
     {
-        if (inputString.Contains('?'))
+        var index = inputString.IndexOf('?');
+        if (index != -1)
         {
+            if (inputString.Count(x => x == '#') >= _conditionsCount) return;
             List<char> newList = [..inputString];
-            var index = newList.IndexOf('?');
+   
             newList[index] = '#';
             GetAllPossibilities(newList);
             newList[index] = '.';
