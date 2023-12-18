@@ -1,3 +1,5 @@
+using AdventOfCode2023.Common;
+
 namespace AdventOfCode2023.Schema.Day16;
 
 public record Grid(char[,] Tiles, int RowCount, int ColumnCount)

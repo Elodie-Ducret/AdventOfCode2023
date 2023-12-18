@@ -1,4 +1,4 @@
-namespace AdventOfCode2023.Schema.Day16;
+namespace AdventOfCode2023.Common;
 
 public record struct Position(int Row, int Column)
 {
