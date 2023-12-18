@@ -42,6 +42,6 @@ public class Day16Part1Problem(string name, string path) : Problem<Grid, long>(n
 
     protected override long Solve(Grid input)
     {
-        return input.GenerateEnergizedPositions();
+        return input.GenerateEnergizedPositions(new Position(0, 0), Direction.East);
     }
 }

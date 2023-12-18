@@ -43,11 +43,12 @@ public record Grid(char[,] Tiles, int RowCount, int ColumnCount)
         Console.WriteLine("----------------");
     }
 
-    public long GenerateEnergizedPositions()
+    public long GenerateEnergizedPositions(Position startingPosition, Direction startingDirection)
     {
+        EnergizedPositions = new HashSet<Position>();
         var alreadySeenValues = new HashSet<(Position, Direction)>();
         var currentValues = new List<(Position position, Direction direction)>()
-            { (new Position(0, 0), Direction.East) };
+            { (startingPosition, startingDirection) };
         while (currentValues.Count != 0)
         {
             var currentValue = currentValues.First();
