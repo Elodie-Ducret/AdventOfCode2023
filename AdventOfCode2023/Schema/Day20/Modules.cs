@@ -6,7 +6,7 @@ public record Modules(Dictionary<string, BaseModule> ModulesByNames)
     private long _highPulseCount = 0;
 
 
-    public long AffectAllModules()
+    public long MultiplePressButton()
     {
         var count = 0;
         do
