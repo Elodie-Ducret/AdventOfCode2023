@@ -43,25 +43,6 @@ public class Day14Part1Problem(string name, string path) : Problem<Platform, lon
 
     protected override long Solve(Platform input)
     {
-        var sum = 0;
-        for (int column = 0; column < input.ColumnCount; column++)
-        {
-            var newMaxPosition = 0;
-            for (int row = 0; row < input.RowCount; row++)
-            {
-                switch (input.InitialPlatform[row, column])
-                {
-                    case 'O' :
-                        sum += input.ColumnCount - newMaxPosition;
-                        newMaxPosition++; 
-                        break;
-                    case '#':
-                        newMaxPosition = row + 1; 
-                        break;
-                }
-            }
-        }
-
-        return sum; 
+        return input.GetCountPart1();
     }
 }
