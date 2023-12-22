@@ -53,9 +53,9 @@ public class Day14Part2Problem(string name, string path) : Problem<Platform, lon
             cycles.Add(currentPlatform);
             currentPlatform = currentPlatform.BuildNewPlatformAfterCycle();
             count++;
-        } while (cycles.Count(x => x.CompareTo(currentPlatform)) != 2);
+        } while (cycles.Count(x => x.EqualsContent(currentPlatform)) != 2);
 
-        var beginOfCycle = cycles.IndexOf(cycles.First(x => x.CompareTo(currentPlatform)));
+        var beginOfCycle = cycles.IndexOf(cycles.First(x => x.EqualsContent(currentPlatform)));
         var cycleSize = count - beginOfCycle;
 
         var cyclePosition = (CycleCount - beginOfCycle) % cycleSize;
