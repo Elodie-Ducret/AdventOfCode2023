@@ -15,21 +15,28 @@ public static class DirectionPosition
     private static readonly Position SouthPosition = new(1, 0);
     private static readonly Position WestPosition = new(0, -1);
 
+    public static Direction GetOpposite(Direction direction)
+    {
+        return direction switch
+        {
+            Direction.North => Direction.South,
+            Direction.East => Direction.West,
+            Direction.South => Direction.North,
+            Direction.West => Direction.East,
+            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+        };
+    }
+
     public static Position GetPosition(Direction direction)
     {
-        switch (direction)
+        return direction switch
         {
-            case Direction.North:
-                return NorthPosition;
-            case Direction.East:
-                return EastPosition;
-            case Direction.South:
-                return SouthPosition;
-            case Direction.West:
-                return WestPosition;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
-        }
+            Direction.North => NorthPosition,
+            Direction.East => EastPosition,
+            Direction.South => SouthPosition,
+            Direction.West => WestPosition,
+            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+        };
     }
 
     public static Direction GetDirectionRLUD(char dir)
