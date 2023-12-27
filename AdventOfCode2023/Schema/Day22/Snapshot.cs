@@ -9,7 +9,58 @@ public record Snapshot(
 {
     private readonly Brick?[,,] _bricksAfterFallen = new Brick[RowCount, ColumnCount, ElevationCount];
 
-    public long BuildAfterFallen()
+    public long GetSafeBricksCountToDisintegrate()
+    {
+        BuildAfterFallen();
+        var sum = 0;
+        foreach (var brick in Bricks)
+        {
+            if (brick.BrickOver.Count == 0) sum++;
+            else
+            {
+                var isRemovable = brick.BrickOver.All(brickOver => brickOver.BricksUnder.Count != 1);
+                if (isRemovable) sum++;
+            }
+        }
+
+        // DisplayRow(_bricksAfterFallen);
+        // DisplayColumn(_bricksAfterFallen);
+
+        return sum;
+    }
+
+    public long GetOtherBricksFallCount()
+    {
+        BuildAfterFallen();
+        var sum = 0;
+        foreach (var brick in Bricks)
+        {
+            if (brick.BrickOver.Count == 0) continue;
+
+            var bricks = new HashSet<Brick>();
+
+            var queue = new Queue<Brick>();
+            queue.Enqueue(brick);
+
+            while (queue.TryDequeue(out var element))
+            {
+                bricks.Add(element);
+                foreach (var brickOver in element.BrickOver)
+                {
+                    if (!brickOver.BricksUnder.All(x => bricks.Contains(x))) continue;
+                    bricks.Add(brickOver);
+                    queue.Enqueue(brickOver);
+                }
+            }
+
+            sum += bricks.Count - 1;
+        }
+
+
+        return sum;
+    }
+
+    private void BuildAfterFallen()
     {
         for (int elevation = 0; elevation < ElevationCount; elevation++)
         {
@@ -27,22 +78,6 @@ public record Snapshot(
                 }
             }
         }
-
-        var sum = 0;
-        foreach (var brick in Bricks)
-        {
-            if (brick.BrickOver.Count == 0) sum++;
-            else
-            {
-                var isRemovable = brick.BrickOver.All(brickOver => brickOver.BricksUnder.Count != 1);
-                if (isRemovable) sum++;
-            }
-        }
-
-        // DisplayRow(_bricksAfterFallen);
-        // DisplayColumn(_bricksAfterFallen);
-
-        return sum;
     }
 
 

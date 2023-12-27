@@ -1,19 +1,19 @@
-using AdventOfCode2023.Common;
+﻿using AdventOfCode2023.Common;
 using AdventOfCode2023.Schema.Day22;
 
 namespace AdventOfCode2023.Problems.Day22;
 
-public class Day22Part1Problem(string name, string path) : Problem<Snapshot, long>(name, path)
+public class Day22Part2Problem(string name, string path) : Problem<Snapshot, long>(name, path)
 {
     public static void Run()
     {
-        var dayProblem = new Day22Part1Problem("Day 22 Part 1", "Day22/Day22.txt");
+        var dayProblem = new Day22Part2Problem("Day 22 Part 2", "Day22/Day22.txt");
         var response = dayProblem.SolveProblem();
     }
 
     public static void RunTest1()
     {
-        var dayProblem = new Day22Part1Problem("Day 22 Part 1 Test1", "Day22/Day22_Part1_Test1.txt");
+        var dayProblem = new Day22Part2Problem("Day 22 Part 2 Test1", "Day22/Day22_Part1_Test1.txt");
         var response = dayProblem.SolveProblem();
     }
 
@@ -55,6 +55,6 @@ public class Day22Part1Problem(string name, string path) : Problem<Snapshot, lon
 
     protected override long Solve(Snapshot input)
     {
-        return input.GetSafeBricksCountToDisintegrate();
+        return input.GetOtherBricksFallCount();
     }
 }
