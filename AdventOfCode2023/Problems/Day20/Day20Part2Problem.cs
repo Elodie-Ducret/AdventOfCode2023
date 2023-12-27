@@ -3,27 +3,15 @@ using AdventOfCode2023.Schema.Day20;
 
 namespace AdventOfCode2023.Problems.Day20;
 
-public class Day20Part1Problem(string name, string path) : Problem<Modules, long>(name, path)
+public class Day20Part2Problem(string name, string path) : Problem<ModulesPart2, long>(name, path)
 {
     public static void Run()
     {
-        var dayProblem = new Day20Part1Problem("Day 20 Part 1", "Day20/Day20.txt");
+        var dayProblem = new Day20Part2Problem("Day 20 Part 2", "Day20/Day20.txt");
         var response = dayProblem.SolveProblem();
     }
 
-    public static void RunTest1()
-    {
-        var dayProblem = new Day20Part1Problem("Day 20 Part 1 Test1", "Day20/Day20_Part1_Test1.txt");
-        var response = dayProblem.SolveProblem();
-    }
-
-    public static void RunTest2()
-    {
-        var dayProblem = new Day20Part1Problem("Day 20 Part 1 Test2", "Day20/Day20_Part1_Test2.txt");
-        var response = dayProblem.SolveProblem();
-    }
-
-    protected override Modules Convert(IEnumerable<string> input)
+    protected override ModulesPart2 Convert(IEnumerable<string> input)
     {
         var dic = new Dictionary<string, BaseModule>();
         foreach (var line in input)
@@ -50,11 +38,13 @@ public class Day20Part1Problem(string name, string path) : Problem<Modules, long
             element.Value.ComputeModules(dic);
         }
 
-        return new Modules(dic); 
+        return new ModulesPart2(dic); 
     }
 
-    protected override long Solve(Modules input)
+    protected override long Solve(ModulesPart2 input)
     {
+        
+        
         return input.MultiplePressButton();
     }
 }
