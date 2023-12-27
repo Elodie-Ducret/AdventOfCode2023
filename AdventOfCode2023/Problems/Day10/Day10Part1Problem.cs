@@ -57,9 +57,9 @@ public class Day10Part1Problem(string name, string path) : Problem<Grid, int>(na
             Position? actualPosition = position;
             do
             {
-                path.Add(actualPosition);
-                (oldPosition, actualPosition) = (actualPosition,
-                    input.GetNewValidPositions(actualPosition).FirstOrDefault(c => c != oldPosition));
+                path.Add(actualPosition.Value);
+                (oldPosition, actualPosition) = (actualPosition.Value,
+                    input.GetNewValidPositions(actualPosition.Value).FirstOrDefault(c => c != oldPosition));
             } while (actualPosition != null && actualPosition != input.StartingPosition);
 
             PrintPath(path, input);

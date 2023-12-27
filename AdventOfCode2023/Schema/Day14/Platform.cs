@@ -7,7 +7,7 @@ public record Platform(char[,] _initialPlatform, int _rowCount, int _columnCount
     private readonly int _columnCount = _columnCount;
 
 
-    public bool CompareTo(Platform other)
+    public bool EqualsContent(Platform other)
     {
         if (_rowCount != other._rowCount || _columnCount != other._columnCount) return false;
 

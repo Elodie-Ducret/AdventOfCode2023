@@ -8,4 +8,9 @@ public record struct Position(int Row, int Column)
     public static Position operator +(in Position lhs, in Position rhs) =>
         new(lhs.Row + rhs.Row,
             lhs.Column + rhs.Column);
+    
+    
+    public static Position operator -(in Position lhs, in Position rhs) =>
+        new(lhs.Row - rhs.Row,
+            lhs.Column - rhs.Column);
 }
