@@ -1,6 +1,6 @@
 ﻿using static System.String;
 
-namespace AdventOfCode2023.Schema.Day19;
+namespace AdventOfCode2023.Schema.Day19.Part1;
 
 public record SystemWorkflow(HashSet<Workflow> Workflows, HashSet<Rating> Ratings)
 {

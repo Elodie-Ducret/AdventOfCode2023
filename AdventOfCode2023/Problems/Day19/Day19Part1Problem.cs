@@ -1,5 +1,6 @@
 ﻿using AdventOfCode2023.Common;
 using AdventOfCode2023.Schema.Day19;
+using AdventOfCode2023.Schema.Day19.Part1;
 
 namespace AdventOfCode2023.Problems.Day19;
 

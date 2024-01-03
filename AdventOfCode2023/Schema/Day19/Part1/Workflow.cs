@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode2023.Schema.Day19;
+﻿namespace AdventOfCode2023.Schema.Day19.Part1;
 
 public record Workflow(string Name, List<Rule> Rules)
 {
