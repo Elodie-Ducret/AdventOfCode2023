@@ -18,7 +18,8 @@ public record Map(int[,] Cities, int RowCount, int ColumnCount)
             if (state.Position == targetPosition) return distance;
             foreach (var neighbor in GetNeighbors(state))
             {
-                toExplore.Enqueue(neighbor, distance + Cities[neighbor.Position.Row, neighbor.Position.Column]);
+                if (!explored.Contains(neighbor))
+                    toExplore.Enqueue(neighbor, distance + Cities[neighbor.Position.Row, neighbor.Position.Column]);
             }
         }
 
